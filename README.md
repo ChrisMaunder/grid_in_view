@@ -2,22 +2,20 @@
 
 A simple tutorial that demonstrates how to use the grid control in a doc/view application.
 
-- [Download full grid demo project - 315.1 KB](https://raw.githubusercontent.com/ChrisMaunder/grid_in_view/master/docs/assets/gridctrl_demo227.zip)
-
 ![gridctrl example image](https://raw.githubusercontent.com/ChrisMaunder/grid_in_view/master/docs/assets/grid_in_view.gif) 
 
-I have had many, MANY questions asking how to use my [MFC grid control](http://www.codeproject.com/miscctrl/gridctrl.asp) in a view instead of in a dialog, so hopefully this will help. 
+I have had many, MANY questions asking how to use my [MFC grid control](https://github.com/ChrisMaunder/MFC-GridCtrl) in a view instead of in a dialog, so hopefully this will help. 
 
 The easiest way as I see it is as follows: 
 
 1. Add a member variable of type `CGridCtrl*` to your view class: 
 
-    ```
+    ```cpp
     CGridCtrl* m_pGrid;
     ```
 2. Initialise this to NULL in your view class' constructor: 
 
-    ```
+    ```cpp
     CMyView::CMyView
     {
         m_pGrid = NULL;
@@ -25,7 +23,7 @@ The easiest way as I see it is as follows:
     ```
 3. In the `CView` function `OnInitialUpdate`, create a new `CGridCtrl` object if the `m_pGrid` is not NULL, and then create the `CGridCtrl` window: 
 
-    ```
+    ```cpp
     CMyView::OnInitialUpdate
     {
         CView::OnInitialUpdate();
@@ -50,7 +48,7 @@ The easiest way as I see it is as follows:
     This allows the view to be reused (eg SDI situations).
 4. We want the grid to take up the whole of the view's client space, so add a handler to the `WM_SIZE` message for the view and edit the `OnSize` function thus: 
 
-    ```
+    ```cpp
     CMyView::OnSize(UINT nType, int cx, int cy) 
     {
         CView::OnSize(nType, cx, cy);
@@ -67,7 +65,7 @@ The easiest way as I see it is as follows:
     ```
 5. Remember to delete the object when you are done: 
 
-    ```
+    ```cpp
     CMyView::~CMyView
     {
         delete m_pGrid;
@@ -75,7 +73,7 @@ The easiest way as I see it is as follows:
     ```
 6. You may want to also add an `OnCmdMsg` overide to your view class and let the grid control have first go at the messages (this will allow commands such as `ID_EDIT_COPY` to be wired in automatically: 
 
-    ```
+    ```cpp
     BOOL CMyView::OnCmdMsg(UINT nID, int nCode, void* pExtra, 
                            AFX_CMDHANDLERINFO* pHandlerInfo) 
     {
